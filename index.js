@@ -10,8 +10,6 @@ app.post('/userById', (req, res) => {
     res.send("I got it");
 })
 
-const server = app.listen(8091, function () {
-   var host = server.address().address;
-   var port = server.address().port;   
-   console.log("App listening at http://%s:%s", host, port);
-})
+const server = app.listen(process.env.PORT, () => {
+    console.log("App listening at http://%s:%s", server.address().address, server.address().port);
+}); // taskkill /f /im node.exe
