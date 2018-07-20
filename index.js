@@ -17,15 +17,15 @@ app.get('/', (req, res) => {
 app.post('/get-user-by-id', (req, res) => {
     console.log(req.body);
 
-    if (isNaN(req.body.queryResult.parameters.user)) {
+    if (isNaN(req.body.queryResult.parameters.userid)) {
         return res.json({
-            fulfillmentText: "Seems you have provided invalid user id '" + req.body.queryResult.parameters.user + "'. Please try again."
+            fulfillmentText: "Seems you have provided invalid user id '" + req.body.queryResult.parameters.userid + "'. Please try again."
         });
     }
     else {
         var options = {
             method: 'GET',
-            uri: 'https://reqres.in/api/users/' + req.body.queryResult.parameters.user,
+            uri: 'https://reqres.in/api/users/' + req.body.queryResult.parameters.userid,
             json: true
         };
 
