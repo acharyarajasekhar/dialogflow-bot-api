@@ -6,7 +6,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/userById', (req, res) => {
-    console.log(req.body);
+    console.log(req.parameters);
     res.send("I got it");
 })
 
