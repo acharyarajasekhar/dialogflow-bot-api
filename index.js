@@ -14,8 +14,7 @@ app.get('/', (req, res) => {
 app.post('/get-user-by-id', (req, res) => {
     console.log(req.body);
     return res.json({
-        speech: "I am coming from API",
-        displayText: "I am coming from API",
+        fulfillmentText: "I am coming from API",
         source: 'get-user-by-id'
     });
 })
