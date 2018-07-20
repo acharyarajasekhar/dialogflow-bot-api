@@ -11,9 +11,13 @@ app.get('/', (req, res) => {
    res.send('I am running...');
 })
 
-app.post('/userById', (req, res) => {
+app.post('/get-user-by-id', (req, res) => {
     console.log(req.body);
-    res.send("I got it");
+    return res.json({
+        speech: "I am coming from API",
+        displayText: "I am coming from API",
+        source: 'get-user-by-id'
+    });
 })
 
 const server = app.listen(process.env.PORT, () => {
