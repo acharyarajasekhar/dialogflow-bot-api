@@ -1,11 +1,12 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+import express from 'express';
+import { urlencoded, json } from 'body-parser';
+import cors from 'cors';
+import request from 'request';
     
 const app = express();
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: false }));
+app.use(json());
 
 app.get('/', (req, res) => {
    res.send('I am running...');
@@ -13,10 +14,31 @@ app.get('/', (req, res) => {
 
 app.post('/get-user-by-id', (req, res) => {
     console.log(req.body);
-    return res.json({
-        fulfillmentText: "I am coming from API",
-        source: 'get-user-by-id'
-    });
+
+    if (isNaN(req.body.queryResult.parameters.user)) {
+        request
+            .get('https://reqres.in/api/users/' + req.body.queryResult.parameters.user)
+            .on('response', function(response) {
+                console.log(response);
+                return res.json({
+                    fulfillmentText: JSON.stringify(response.body)
+                });
+            })
+            .on('error', function(err) {
+                console.log(err);
+                return res.json({
+                    fulfillmentText: "I am not able contact user's API"
+                });
+            })
+    }
+    else {
+        return res.json({
+            fulfillmentText: "Seems you have provided invalid user id '" + req.body.queryResult.parameters.user + "'. Please try again."
+        });
+    }
+
+    
+    
 })
 
 const server = app.listen(process.env.PORT, () => {
