@@ -2,7 +2,8 @@ const
     express = require('express'),
     { urlencoded, json } = require('body-parser'),
     cors = require('cors'),
-    request = require('request');
+    rp = require('request-promise'),
+    rp_errors = require('request-promise/errors');
 
 const app = express();
 app.use(cors());
@@ -22,23 +23,48 @@ app.post('/get-user-by-id', (req, res) => {
         });
     }
     else {
-        request
-            .get('https://reqres.in/api/users/' + req.body.queryResult.parameters.user)
-            .on('response', function (response) {
+        var options = {
+            method: 'GET',
+            uri: 'https://reqres.in/api/users/' + req.body.queryResult.parameters.user,
+            json: true
+        };
+
+        rp(options)
+            .then(response => {
                 console.log(response);
-                return res.json({
-                    fulfillmentText: JSON.stringify(response.body)
-                });
+                if(response && response.data) {
+                    return res.json({
+                        fulfillmentText: "The requested user name is " + response.data.first_name + " " + response.data.last_name
+                    });
+                }
+                else {
+                    return res.json({
+                        fulfillmentText: "Could't locate the requested user details from our database..."
+                    });
+                }
             })
-            .on('error', function (err) {
-                console.log(err);
+            .catch(rp_errors.StatusCodeError, reason => {
+                console.log(reason.statusCode);
+                if(reason.statusCode === 404) {
+                    return res.json({
+                        fulfillmentText: "Could't locate the requested user details from our database..."
+                    });
+                }
+                else {
+                    return res.json({
+                        fulfillmentText: "Something went wrong while contacting the backed servers. Please contact the support team..."
+                    });
+                }
+            })
+            .catch(rp_errors.RequestError, function (reason) {
+                console.log(reason.cause);
                 return res.json({
-                    fulfillmentText: "I am not able contact user's API"
+                    fulfillmentText: "Something went wrong while contacting the backed servers. Please contact the support team..."
                 });
             });
     }
 })
 
-const server = app.listen(process.env.PORT, () => {
+const server = app.listen(8091, () => {
     console.log("App listening at http://%s:%s", server.address().address, server.address().port);
 }); // taskkill /f /im node.exe
