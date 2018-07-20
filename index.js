@@ -1,7 +1,8 @@
-import express from 'express';
-import { urlencoded, json } from 'body-parser';
-import cors from 'cors';
-import request from 'request';
+const 
+    express = require('express'),
+    { urlencoded, json } = require('body-parser'),
+    cors = require('cors'),
+    request = require('request');
     
 const app = express();
 app.use(cors());
