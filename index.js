@@ -23,6 +23,10 @@ app.post('/endpoint', (req, res) => {
          req.body.originalDetectIntentRequest.payload &&
          req.body.originalDetectIntentRequest.payload.user) {
              console.log(req.body.originalDetectIntentRequest.payload.user)
+
+            var dec = jwt.decode(req.body.originalDetectIntentRequest.payload.user.idToken);
+            console.log(dec);
+
              jwt.verify(req.body.originalDetectIntentRequest.payload.user.idToken, process.env.JWT_KEY, function(err, decoded) {
                 console.log(err);
                 console.log(decoded) // bar
