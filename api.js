@@ -4,7 +4,8 @@ const
     cors = require('cors'),
     rp = require('request-promise'),
     rp_errors = require('request-promise/errors'),
-    jwt = require('jsonwebtoken');
+    jwt = require('jsonwebtoken'),
+    rn = require('random-number');
 
 module.exports = (req, res) => {
 
@@ -29,7 +30,7 @@ module.exports = (req, res) => {
 
         return res.json(rrr);
     }
-    else if("req.body.queryResult.intent.displayName" == "get.order.delivery.date") {
+    else if(req.body.queryResult.intent.displayName == "get.order.delivery.date") {
 
         if (isNaN(req.body.queryResult.parameters.order_id)) {
             return res.json({
