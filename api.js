@@ -8,21 +8,41 @@ const
 
 module.exports = (req, res) => {
 
-    if (req.body.queryResult.intent.displayName == "query.my.user.profile")
-    {
+    if (req.body.queryResult.intent.displayName == "query.my.user.profile") {
         var rrr = res.json({
             fulfillmentText: "Here is your profile. Name: " + req.userInContext.name + " Email: " + req.userInContext.email
         });
 
         return res.json(rrr);
     }
-    else if(req.body.queryResult.intent.displayName == "get.order.status")
-    {
+    else if (req.body.queryResult.intent.displayName == "get.order.status") {
+
+        if (isNaN(req.body.queryResult.parameters.order_id)) {
+            return res.json({
+                fulfillmentText: "Seems you have provided invalid order id. Please try again."
+            });
+        }
+
         var rrr = res.json({
             fulfillmentText: "Here is the order status"
         });
 
         return res.json(rrr);
+    }
+    else if("req.body.queryResult.intent.displayName" == "get.order.delivery.date") {
+
+        if (isNaN(req.body.queryResult.parameters.order_id)) {
+            return res.json({
+                fulfillmentText: "Seems you have provided invalid order id. Please try again."
+            });
+        }
+
+        var rrr = res.json({
+            fulfillmentText: "Here is the order delivery date"
+        });
+
+        return res.json(rrr);
+
     }
 
 
