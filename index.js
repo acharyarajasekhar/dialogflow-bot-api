@@ -15,8 +15,14 @@ app.get('/', (req, res) => {
 })
 
 app.post('/endpoint', (req, res) => {
-    console.log(req);
-    console.log(req);
+    console.log(req.body);
+
+    if(req.body &&
+         req.body.originalDetectIntentRequest && 
+         req.body.originalDetectIntentRequest.payload &&
+         req.body.originalDetectIntentRequest.payload.user) {
+             console.log(req.body.originalDetectIntentRequest.payload.user)
+         }
 
     if (isNaN(req.body.queryResult.parameters.userid)) {
         return res.json({
