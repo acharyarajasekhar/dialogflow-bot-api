@@ -8,7 +8,7 @@ const
 
 module.exports = (req, res) => {
 
-    if (req.body.queryResult.intent.name === "projects/genomicsecombot/agent/intents/85c35b12-ee2d-4c6c-892d-4f73d5d9faf1")
+    if (req.body.queryResult.intent.name == "query.my.user.profile")
     {
         return res.json({
             fulfillmentText: "Here is your profile",
