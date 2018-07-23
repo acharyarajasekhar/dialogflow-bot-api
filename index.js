@@ -23,7 +23,7 @@ app.post('/endpoint', (req, res) => {
          req.body.originalDetectIntentRequest.payload &&
          req.body.originalDetectIntentRequest.payload.user) {
              console.log(req.body.originalDetectIntentRequest.payload.user)
-             jwt.verify(req.body.originalDetectIntentRequest.payload.user.idToken, '964626533861-bqgoeij3hnk4nh6f6plr7fl8hofuleni.apps.googleusercontent.com', function(err, decoded) {
+             jwt.verify(req.body.originalDetectIntentRequest.payload.user.idToken, process.env.JWT_KEY, function(err, decoded) {
                 console.log(err);
                 console.log(decoded) // bar
               });
