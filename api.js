@@ -8,7 +8,7 @@ const
 
 module.exports = (req, res) => {
 
-    if (req.body.queryResult.intent.name == "query.my.user.profile")
+    if (req.body.queryResult.intent.displayName == "query.my.user.profile")
     {
         return res.json({
             fulfillmentText: "Here is your profile",
