@@ -7,6 +7,13 @@ const
     jwt = require('jsonwebtoken'),
     rn = require('random-number');
 
+const order_status = ["PLACED", "IN PROGRESS", "PUBLISHED", "SHIPPED"];
+var gen = rn.generator({
+    min:  0
+  , max:  3
+  , integer: true
+});
+
 module.exports = (req, res) => {
 
     if (req.body.queryResult.intent.displayName == "query.my.user.profile") {
@@ -25,7 +32,7 @@ module.exports = (req, res) => {
         }
 
         var rrr = res.json({
-            fulfillmentText: "Here is the order status"
+            fulfillmentText: "Your order is " + order_status[get()]
         });
 
         return res.json(rrr);
@@ -38,12 +45,21 @@ module.exports = (req, res) => {
             });
         }
 
+        var newDate = new Date(date.setTime( date.getTime() + get() * 86400000 ));
+
         var rrr = res.json({
-            fulfillmentText: "Here is the order delivery date"
+            fulfillmentText: "Your order will be delivered on " + newDate.format("%Y-%m-%d %H:%M:%S")
         });
 
         return res.json(rrr);
 
+    }
+    else {
+        var rrr = res.json({
+            fulfillmentText: "Sorry, I am unable to understand your request. Please try in a different way"
+        });
+
+        return res.json(rrr);
     }
 
 
