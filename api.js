@@ -32,7 +32,7 @@ module.exports = (req, res) => {
         }
 
         var rrr = res.json({
-            fulfillmentText: "Your order is " + order_status[get()]
+            fulfillmentText: "Your order is " + order_status[gen()]
         });
 
         return res.json(rrr);
@@ -45,7 +45,7 @@ module.exports = (req, res) => {
             });
         }
 
-        var newDate = new Date(date.setTime( date.getTime() + get() * 86400000 ));
+        var newDate = new Date(date.setTime( date.getTime() + gen() * 86400000 ));
 
         var rrr = res.json({
             fulfillmentText: "Your order will be delivered on " + newDate.format("%Y-%m-%d %H:%M:%S")
