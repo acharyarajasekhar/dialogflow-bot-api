@@ -45,11 +45,15 @@ module.exports = (req, res) => {
                 fulfillmentText: "Seems you have provided invalid order id. Please try again."
             });
         }
-        var date = moment(Date.now).add(gen(), 'days');
-        var day = date.day();
+       
+        // From date to moment 
+        var wrapped = moment(new Date()); 
+        console.log(wrapped.toDate()); 
+        console.log(wrapped.add(2, 'days').format('dddd')); 
+        console.log(wrapped.add(2, 'days').format('YYYY-MM-DD')); 
 
         var rrr = res.json({
-            fulfillmentText: "Your order will be delivered on coming " + day + " that is on " + date.format("YYYY MM DD")
+            fulfillmentText: "Your order will be delivered on coming " + wrapped.add(2, 'days').format('dddd') + " that is on " + wrapped.add(2, 'days').format('YYYY-MM-DD')
         });
 
         return res.json(rrr);

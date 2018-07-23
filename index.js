@@ -6,7 +6,8 @@ const
     rp_errors = require('request-promise/errors'),
     jwt = require('jsonwebtoken'),
     auth = require('./auth'),
-    api = require('./api');
+    api = require('./api'),
+    moment = require('moment');
 
 const app = express();
 app.use(cors());
