@@ -49,8 +49,8 @@ module.exports = (req, res) => {
         // From date to moment 
         var wrapped = moment(new Date()); 
         console.log(wrapped.toDate()); 
-        console.log(wrapped.add(2, 'days').format('dddd')); 
-        console.log(wrapped.add(2, 'days').format('YYYY-MM-DD')); 
+        console.log(wrapped.add(gen(), 'days').format('dddd')); 
+        console.log(wrapped.add(gen(), 'days').format('YYYY-MM-DD')); 
 
         var rrr = res.json({
             fulfillmentText: "Your order will be delivered on coming " + wrapped.add(2, 'days').format('dddd') + " that is on " + wrapped.add(2, 'days').format('YYYY-MM-DD')
