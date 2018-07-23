@@ -5,7 +5,8 @@ const
     rp = require('request-promise'),
     rp_errors = require('request-promise/errors'),
     jwt = require('jsonwebtoken'),
-    rn = require('random-number');
+    rn = require('random-number'),
+    moment = require('moment');
 
 const order_status = ["PLACED", "IN PROGRESS", "PUBLISHED", "SHIPPED"];
 var gen = rn.generator({
@@ -44,11 +45,11 @@ module.exports = (req, res) => {
                 fulfillmentText: "Seems you have provided invalid order id. Please try again."
             });
         }
-        var date = Date.now;
-        var newDate = new Date(date.setTime( date.getTime() + gen() * 86400000 ));
+        var date = moment(Date.now).add(gen(), 'days');
+        var day = date.day();
 
         var rrr = res.json({
-            fulfillmentText: "Your order will be delivered on " + newDate.format("%Y-%m-%d %H:%M:%S")
+            fulfillmentText: "Your order will be delivered on coming " + day + " that is on " + date.format("YYYY MM DD")
         });
 
         return res.json(rrr);
