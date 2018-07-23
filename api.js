@@ -11,7 +11,7 @@ module.exports = (req, res) => {
     if (req.body.queryResult.intent.displayName == "query.my.user.profile")
     {
         var rrr = res.json({
-            fulfillmentText: "Here is your profile. Name: " + req.userInContext.namne + " Email: " + req.userInContext.email
+            fulfillmentText: "Here is your profile. Name: " + req.userInContext.name + " Email: " + req.userInContext.email
         });
 
         return res.json(rrr);
