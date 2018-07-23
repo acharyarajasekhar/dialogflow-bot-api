@@ -7,6 +7,24 @@ const
     jwt = require('jsonwebtoken');
 
 module.exports = (req, res) => {
+
+    if (req.body.queryResult.intent.name === "projects/genomicsecombot/agent/intents/85c35b12-ee2d-4c6c-892d-4f73d5d9faf1")
+    {
+        return res.json({
+            fulfillmentText: "Here is your profile",
+            fulfillmentMessages: [
+                {
+                  "card": {
+                    "Name": req.userInContext.name,
+                    "Email": req.userInContext.email,
+                    "imageUri": req.userInContext.picture
+                  }
+                }
+            ]
+        });
+    }
+
+
     if (isNaN(req.body.queryResult.parameters.userid)) {
         return res.json({
             fulfillmentText: "Seems you have provided invalid user id '" + req.body.queryResult.parameters.userid + "'. Please try again."
