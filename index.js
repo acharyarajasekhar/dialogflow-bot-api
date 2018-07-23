@@ -15,8 +15,8 @@ app.get('/', (req, res) => {
 })
 
 app.post('/endpoint', (req, res) => {
-    console.log(req.headers);
-    console.log(req.body);
+    console.log(req);
+    console.log(req);
 
     if (isNaN(req.body.queryResult.parameters.userid)) {
         return res.json({
