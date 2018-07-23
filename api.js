@@ -44,7 +44,7 @@ module.exports = (req, res) => {
                 fulfillmentText: "Seems you have provided invalid order id. Please try again."
             });
         }
-
+        var date = Date.now;
         var newDate = new Date(date.setTime( date.getTime() + gen() * 86400000 ));
 
         var rrr = res.json({
